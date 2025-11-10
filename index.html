@@ -18,31 +18,26 @@
 
   <!-- 🌐 Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
-  <div class="container">
-          <a class="navbar-brand fw-bold" ><i class="bi bi-people-fill"></i> MeetSphere</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container">
+      <a class="navbar-brand fw-bold"><i class="bi bi-people-fill"></i> MeetSphere</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
-        <li class="nav-item"><a class="nav-link restricted" href="#categories">Categories</a></li>
-        <li class="nav-item"><a class="nav-link restricted" href="#about">About</a></li>
-        <li class="nav-item">
-  <a class="nav-link restricted" href="dashboard.html">My Dashboard</a>
-</li>
-
-  <li class="nav-item" id="auth-btn-container">
-  <a class="btn btn-outline-primary me-2" href="login.html" id="auth-btn">Login/Register</a>
-</li>
-
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">My Dashboard</a></li>
+          <li class="nav-item">
+            <a class="btn btn-outline-primary me-2" href="login.html" id="auth-btn">Login/Register</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
+  </nav>
 
   <!-- 🦋 Hero Section -->
   <section id="home" class="hero-section d-flex align-items-center text-center text-lg-start">
@@ -53,10 +48,9 @@
           <p class="lead text-muted mb-4">Host or join exciting events — from hackathons to music fests.</p>
           <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
             <a href="#events" class="btn btn-gradient">Explore Events</a>
-<button class="btn btn-primary text-black " onclick="window.location.href='hosteventhomepage.html'">
-  Host an Event
-</button>
-
+            <button class="btn btn-primary text-black" onclick="window.location.href='hosteventhomepage.html'">
+              Host an Event
+            </button>
           </div>
         </div>
         <div class="col-lg-6 mt-4 mt-lg-0 text-center">
@@ -72,105 +66,118 @@
       <h2 class="fw-bold mb-2">Explore by Category</h2>
       <p class="text-muted mb-5">Find events that match your vibe — technical or creative.</p>
       <div class="row g-4">
+        
         <div class="col-6 col-md-4 col-lg-2 mx-auto">
-          <div class="category-card p-4 shadow-sm rounded-4 h-100">
-            <div class="fs-1">💻</div>
-            <h5 class="mt-3">Technical</h5>
-            <p class="small text-muted">Hackathons, workshops, coding sprints.</p>
-          </div>
+          <a href="categories/technical.html" class="text-decoration-none text-dark">
+            <div class="category-card p-4 shadow-sm rounded-4 h-100">
+              <div class="fs-1">💻</div>
+              <h5 class="mt-3">Technical</h5>
+              <p class="small text-muted">Hackathons, workshops, coding sprints.</p>
+            </div>
+          </a>
         </div>
+
         <div class="col-6 col-md-4 col-lg-2 mx-auto">
-          <div class="category-card p-4 shadow-sm rounded-4 h-100">
-            <div class="fs-1">🎵</div>
-            <h5 class="mt-3">Music</h5>
-            <p class="small text-muted">Concerts, showcases, open mics.</p>
-          </div>
+          <a href="categories/music.html" class="text-decoration-none text-dark">
+            <div class="category-card p-4 shadow-sm rounded-4 h-100">
+              <div class="fs-1">🎵</div>
+              <h5 class="mt-3">Music</h5>
+              <p class="small text-muted">Concerts, showcases, open mics.</p>
+            </div>
+          </a>
         </div>
+
         <div class="col-6 col-md-4 col-lg-2 mx-auto">
-          <div class="category-card p-4 shadow-sm rounded-4 h-100">
-            <div class="fs-1">🎭</div>
-            <h5 class="mt-3">Cultural</h5>
-            <p class="small text-muted">Festivals, theatre, community gatherings.</p>
-          </div>
+          <a href="categories/culturals.html" class="text-decoration-none text-dark">
+            <div class="category-card p-4 shadow-sm rounded-4 h-100">
+              <div class="fs-1">🎭</div>
+              <h5 class="mt-3">Cultural</h5>
+              <p class="small text-muted">Festivals, theatre, community gatherings.</p>
+            </div>
+          </a>
         </div>
+
         <div class="col-6 col-md-4 col-lg-2 mx-auto">
-          <div class="category-card p-4 shadow-sm rounded-4 h-100">
-            <div class="fs-1">⚽</div>
-            <h5 class="mt-3">Sports</h5>
-            <p class="small text-muted">Tournaments, fitness meets, matches.</p>
-          </div>
+          <a href="categories/sports.html" class="text-decoration-none text-dark">
+            <div class="category-card p-4 shadow-sm rounded-4 h-100">
+              <div class="fs-1">⚽</div>
+              <h5 class="mt-3">Sports</h5>
+              <p class="small text-muted">Tournaments, fitness meets, matches.</p>
+            </div>
+          </a>
         </div>
+
         <div class="col-6 col-md-4 col-lg-2 mx-auto">
-          <div class="category-card p-4 shadow-sm rounded-4 h-100">
-            <div class="fs-1">💼</div>
-            <h5 class="mt-3">Business</h5>
-            <p class="small text-muted">Meetups, pitch nights, networking.</p>
-          </div>
+          <a href="categories/business.html" class="text-decoration-none text-dark">
+            <div class="category-card p-4 shadow-sm rounded-4 h-100">
+              <div class="fs-1">💼</div>
+              <h5 class="mt-3">Business</h5>
+              <p class="small text-muted">Meetups, pitch nights, networking.</p>
+            </div>
+          </a>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- 🎉 Upcoming Events -->
-<section id="events" class="py-5 bg-light">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="fw-bold">Upcoming Events</h2>
-      <a href="#events" class="text-primary fw-semibold">View All →</a>
+  <section id="events" class="py-5 bg-light">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Upcoming Events</h2>
+        <a href="#events" class="text-primary fw-semibold">View All →</a>
+      </div>
+
+      <div class="row g-4">
+        <!-- Example Static Cards -->
+        <div class="col-md-4 d-flex">
+          <div class="card border-0 shadow-sm rounded-4 flex-fill">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=900"
+                 class="card-img-top rounded-top-4" alt="Hackathon">
+            <div class="card-body d-flex flex-column">
+              <h5 class="mb-2">City Hackathon 2025</h5>
+              <p class="text-muted small mb-3">Nov 14, 2025 • Chennai</p>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-outline-primary btn-sm me-2">Details</a>
+                <a href="#" class="btn btn-gradient btn-sm">Register</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+          <div class="card border-0 shadow-sm rounded-4 flex-fill">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=900"
+                 class="card-img-top rounded-top-4" alt="Music Fest">
+            <div class="card-body d-flex flex-column">
+              <h5 class="mb-2">Riverside Music Fest</h5>
+              <p class="text-muted small mb-3">Dec 02, 2025 • Bangalore</p>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-outline-primary btn-sm me-2">Details</a>
+                <a href="#" class="btn btn-gradient btn-sm">Register</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+          <div class="card border-0 shadow-sm rounded-4 flex-fill">
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=900"
+                 class="card-img-top rounded-top-4" alt="Business Meetup">
+            <div class="card-body d-flex flex-column">
+              <h5 class="mb-2">Startup Pitch Night</h5>
+              <p class="text-muted small mb-3">Nov 28, 2025 • Mumbai</p>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-outline-primary btn-sm me-2">Details</a>
+                <a href="#" class="btn btn-gradient btn-sm">Register</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="row g-4">
-      <!-- Card 1 -->
-      <div class="col-md-4 d-flex">
-        <div class="card border-0 shadow-sm rounded-4 flex-fill">
-          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=900"
-               class="card-img-top rounded-top-4" alt="Hackathon">
-          <div class="card-body d-flex flex-column">
-            <h5 class="mb-2">City Hackathon 2025</h5>
-            <p class="text-muted small mb-3">Nov 14, 2025 • Chennai</p>
-            <div class="mt-auto">
-              <a href="#" class="btn btn-outline-primary btn-sm me-2">Details</a>
-              <a href="#" class="btn btn-gradient btn-sm">Register</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="col-md-4 d-flex">
-        <div class="card border-0 shadow-sm rounded-4 flex-fill">
-          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=900"
-               class="card-img-top rounded-top-4" alt="Music Fest">
-          <div class="card-body d-flex flex-column">
-            <h5 class="mb-2">Riverside Music Fest</h5>
-            <p class="text-muted small mb-3">Dec 02, 2025 • Bangalore</p>
-            <div class="mt-auto">
-              <a href="#" class="btn btn-outline-primary btn-sm me-2">Details</a>
-              <a href="#" class="btn btn-gradient btn-sm">Register</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="col-md-4 d-flex">
-        <div class="card border-0 shadow-sm rounded-4 flex-fill">
-          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=900"
-               class="card-img-top rounded-top-4" alt="Business Meetup">
-          <div class="card-body d-flex flex-column">
-            <h5 class="mb-2">Startup Pitch Night</h5>
-            <p class="text-muted small mb-3">Nov 28, 2025 • Mumbai</p>
-            <div class="mt-auto">
-              <a href="#" class="btn btn-outline-primary btn-sm me-2">Details</a>
-              <a href="#" class="btn btn-gradient btn-sm">Register</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- 🌍 Community Join -->
   <section class="py-5">
@@ -178,7 +185,7 @@
       <div class="p-5 bg-gradient rounded-4 text-green shadow">
         <h3>Join the MeetSphere Community</h3>
         <p class="mb-4">Never miss an event — get updates and network with like-minded people.</p>
-        <a href="#auth" class="btn btn-light btn-lg">Join Now</a>
+        <a href="login.html" class="btn btn-light btn-lg">Join Now</a>
       </div>
     </div>
   </section>
@@ -199,7 +206,7 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS + custom script -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
