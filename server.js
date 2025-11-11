@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname))); // Serve HTML/CSS/JS files
+app.use(express.static(path.join(__dirname))); // serve static files
 
 // ✅ MongoDB connection
 mongoose
@@ -43,7 +43,7 @@ const eventSchema = new mongoose.Schema({
   mode: String,
   startDate: String,
   endDate: String,
-  location: String,
+  location: String, // ✅ make sure location is included
   availableSeats: Number,
   deadline: String,
   entryType: String,
@@ -121,7 +121,7 @@ app.post("/createEvent", async (req, res) => {
   try {
     const eventData = req.body;
 
-    // Initialize availableSeats to maxParticipants if not already set
+    // default seats
     if (!eventData.availableSeats && eventData.availableSeats !== 0) {
       eventData.availableSeats = eventData.maxParticipants || 0;
     }
@@ -130,7 +130,7 @@ app.post("/createEvent", async (req, res) => {
     await event.save();
     res.status(201).json({ message: "Event created successfully", event });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Create event error:", error);
     res.status(500).json({ message: "Failed to create event" });
   }
 });
@@ -151,59 +151,51 @@ app.get("/api/events", async (req, res) => {
 // ======================
 // ✅ Register for Event
 // ======================
-// ✅ Register for Event
 app.post("/api/register", async (req, res) => {
   try {
     const { eventId, name, email } = req.body;
 
-    // Validate input
     if (!eventId || !name || !email)
       return res.status(400).json({ message: "All fields are required" });
 
-    // Find event
     const event = await Event.findById(eventId);
     if (!event) return res.status(404).json({ message: "Event not found" });
 
-    // Check available seats
     if (event.availableSeats <= 0)
       return res.status(400).json({ message: "No seats available" });
 
-    // Prevent duplicate registration
     const existing = await Registration.findOne({ eventId, email });
     if (existing) return res.status(400).json({ message: "Already registered" });
 
-    // Reduce available seats
     event.availableSeats -= 1;
     await event.save();
 
-    // Save registration
     await Registration.create({ eventId, name, email });
 
-    // ✅ Optional: send confirmation email
-    // Make sure to replace with your email & app password
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "youremail@gmail.com",
-        pass: "your-app-password",
-      },
-    });
+    // ✅ Optional Email confirmation (only if credentials added)
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
 
-    await transporter.sendMail({
-      from: "youremail@gmail.com",
-      to: email,
-      subject: `Registration Confirmed: ${event.title}`,
-      text: `Hi ${name},\n\nYou have successfully registered for "${event.title}".\nDate: ${event.startDate}\nLocation: ${event.location}\nRemaining Seats: ${event.availableSeats}\n\n— MeetSphere Team`,
-    });
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: `Registration Confirmed: ${event.title}`,
+        text: `Hi ${name},\n\nYou have successfully registered for "${event.title}".\nDate: ${event.startDate}\nLocation: ${event.location}\nRemaining Seats: ${event.availableSeats}\n\n— MeetSphere Team`,
+      });
+    }
 
-    res.status(200).json({ message: "Registration successful. Confirmation email sent." });
-
+    res.status(200).json({ message: "Registration successful. Confirmation email sent if configured." });
   } catch (err) {
     console.error("❌ Registration error:", err);
     res.status(500).json({ message: "Server error during registration" });
   }
 });
-
 
 // ======================
 // ✅ Catch-all for invalid routes

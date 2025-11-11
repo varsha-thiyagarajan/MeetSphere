@@ -6,22 +6,94 @@
   <title>Create Event | MeetSphere</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
-    body { background: linear-gradient(135deg, #e3f2fd, #90caf9); font-family: 'Poppins', sans-serif; padding: 40px 0; }
-    .container { max-width: 800px; background: white; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); padding: 40px; }
-    h2 { text-align: center; color: #0f0f0f; font-weight: 600; margin-bottom: 30px; }
-    h5 { color: #0e0e0e; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #90caf9; padding-bottom: 5px; }
-    .form-control, .form-select { border-radius: 10px; }
-    .btn-primary { background-color: #1565c0; border: none; border-radius: 10px; padding: 12px 20px; font-size: 1.1rem; }
-    .btn-primary:hover { background-color: #0d47a1; }
+    body {
+      background: linear-gradient(135deg, #b3e5fc, #90caf9, #64b5f6);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 10px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 850px;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+      padding: 45px 50px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #0f0f0f;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    h5 {
+      color: #1565c0;
+      font-weight: 600;
+      margin-top: 35px;
+      border-bottom: 2px solid #90caf9;
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-control, .form-select {
+      border-radius: 12px;
+      border: 1px solid #b0bec5;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #42a5f5;
+      box-shadow: 0 0 6px rgba(66, 165, 245, 0.5);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1565c0, #1e88e5);
+      border: none;
+      border-radius: 12px;
+      padding: 12px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      transform: scale(1.05);
+    }
+
+    .section-divider {
+      text-align: center;
+      margin-top: 30px;
+      color: #607d8b;
+      font-weight: 500;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2><i class="bi bi-calendar-event"></i> Create Your Event</h2>
+    <h2><i class="bi bi-calendar-event-fill text-primary"></i> Create Your Event</h2>
 
     <form id="eventForm">
-      <h5>🧾 Event Information</h5>
+      <h5><i class="bi bi-info-circle"></i> Event Information</h5>
+
       <div class="mb-3">
         <label class="form-label">Event Name</label>
         <input type="text" id="title" class="form-control" placeholder="Enter event title" required>
@@ -32,27 +104,31 @@
         <textarea id="description" class="form-control" rows="3" placeholder="Describe your event briefly" required></textarea>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Category</label>
-        <select id="category" class="form-select" required>
-          <option selected disabled>Choose category</option>
-          <option>Technical</option>
-          <option>Music</option>
-          <option>Cultural</option>
-          <option>Sports</option>
-          <option>Business</option>
-        </select>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Event Type</label><br>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="eventType" value="Online" required>
-          <label class="form-check-label">Online</label>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Category</label>
+          <select id="category" class="form-select" required>
+            <option selected disabled>Choose category</option>
+            <option>Technical</option>
+            <option>Music</option>
+            <option>Cultural</option>
+            <option>Sports</option>
+            <option>Business</option>
+          </select>
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="eventType" value="Offline">
-          <label class="form-check-label">Offline</label>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Event Type</label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="eventType" value="Online" required>
+              <label class="form-check-label">Online</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="eventType" value="Offline">
+              <label class="form-check-label">Offline</label>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -69,30 +145,33 @@
 
       <div class="mb-3">
         <label class="form-label">Venue / Meeting Link</label>
-        <input type="text" id="location" class="form-control" placeholder="Enter location or meeting link">
+        <input type="text" id="location" class="form-control" placeholder="Enter location or meeting link" required>
       </div>
 
-      <h5>👥 Registration Details</h5>
+      <h5><i class="bi bi-person-lines-fill"></i> Registration Details</h5>
+
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label">Maximum Participants</label>
-          <input type="number" id="maxParticipants" class="form-control" placeholder="e.g., 100">
+          <input type="number" id="maxParticipants" class="form-control" placeholder="e.g., 100" required>
         </div>
         <div class="col-md-6 mb-3">
           <label class="form-label">Registration Deadline</label>
-          <input type="date" id="deadline" class="form-control">
+          <input type="date" id="deadline" class="form-control" required>
         </div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Entry Type</label><br>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="entryType" value="Free" required>
-          <label class="form-check-label">Free</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="entryType" value="Paid">
-          <label class="form-check-label">Paid</label>
+        <label class="form-label">Entry Type</label>
+        <div class="d-flex gap-3">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="entryType" value="Free" required>
+            <label class="form-check-label">Free</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="entryType" value="Paid">
+            <label class="form-check-label">Paid</label>
+          </div>
         </div>
       </div>
 
@@ -101,22 +180,25 @@
         <input type="number" id="price" class="form-control" placeholder="e.g., 500 INR">
       </div>
 
-      <h5>🧑‍💼 Organizer Information</h5>
+      <h5><i class="bi bi-person-workspace"></i> Organizer Information</h5>
+
       <div class="mb-3">
         <label class="form-label">Organizer Name</label>
         <input type="text" id="organizerName" class="form-control" placeholder="Name or Organization" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Organizer Email</label>
         <input type="email" id="organizerEmail" class="form-control" placeholder="you@example.com" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Website / Social Link (optional)</label>
         <input type="url" id="website" class="form-control" placeholder="https://yourwebsite.com">
       </div>
 
       <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary px-5">
+        <button type="submit" class="btn btn-primary">
           <i class="bi bi-plus-circle"></i> Create Event
         </button>
       </div>
@@ -124,80 +206,55 @@
   </div>
 
   <script>
-   
-document.getElementById("eventForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
+    document.getElementById("eventForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-  // Get values from form
-  const title = document.getElementById("title").value.trim();
-  const description = document.getElementById("description").value.trim();
-  const category = document.getElementById("category").value;
-  const mode = document.querySelector('input[name="eventType"]:checked')?.value;
-  const startDate = document.getElementById("startDate").value;
-  const endDate = document.getElementById("endDate").value;
-  const location = document.getElementById("location").value.trim();
-  const maxParticipantsInput = document.getElementById("maxParticipants").value;
-  const deadline = document.getElementById("deadline").value;
-  const entryType = document.querySelector('input[name="entryType"]:checked')?.value;
-  const price = document.getElementById("price").value;
-  const organizerName = document.getElementById("organizerName").value.trim();
-  const organizerEmail = document.getElementById("organizerEmail").value.trim();
-  const website = document.getElementById("website").value.trim();
-const availableSeatsValue = Number(maxParticipantsInput);
-if (isNaN(availableSeatsValue) || availableSeatsValue <= 0) {
-  alert("⚠️ Please enter a valid number of available seats.");
-  return;
-}
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const category = document.getElementById("category").value;
+      const mode = document.querySelector('input[name="eventType"]:checked')?.value;
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+      const location = document.getElementById("location").value.trim();
+      const maxParticipants = Number(document.getElementById("maxParticipants").value);
+      const deadline = document.getElementById("deadline").value;
+      const entryType = document.querySelector('input[name="entryType"]:checked')?.value;
+      const price = document.getElementById("price").value;
+      const organizerName = document.getElementById("organizerName").value.trim();
+      const organizerEmail = document.getElementById("organizerEmail").value.trim();
+      const website = document.getElementById("website").value.trim();
 
+      if (isNaN(maxParticipants) || maxParticipants <= 0) {
+        alert("⚠️ Please enter a valid number of available seats.");
+        return;
+      }
 
-  // Prepare event data object
-  const eventData = {
-    title,
-    description,
-    category,
-    mode,
-    startDate,
-    endDate,
-    location,
-    availableSeats: availableSeatsValue, // ✅ Fixed field name
-    deadline,
-    entryType,
-    price,
-    organizerName,
-    organizerEmail,
-    website
-  };
+      const eventData = {
+        title, description, category, mode, startDate, endDate, location,
+        availableSeats: maxParticipants, deadline, entryType, price,
+        organizerName, organizerEmail, website
+      };
 
-  try {
-    const response = await fetch("http://localhost:5000/api/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(eventData),
+      try {
+        const response = await fetch("http://localhost:3000/createEvent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(eventData),
+        });
+
+        if (response.ok) {
+          alert("✅ Event created successfully!");
+          document.getElementById("eventForm").reset();
+          setTimeout(() => window.location.href = "dashboard.html", 1000);
+        } else {
+          const err = await response.json();
+          alert("❌ Failed to create event: " + (err.message || "Unknown error"));
+        }
+      } catch (error) {
+        console.error("Error creating event:", error);
+        alert("❌ Server error. Please try again later.");
+      }
     });
-
-    if (response.ok) {
-      const result = await response.json();
-      alert("✅ Event created successfully!");
-      console.log("Event Created:", result);
-
-      // Clear form after success
-      document.getElementById("eventForm").reset();
-
-      // Redirect to dashboard after 1 second
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 1000);
-    } else {
-      const err = await response.json();
-      alert("❌ Failed to create event: " + (err.message || "Unknown error"));
-    }
-  } catch (error) {
-    console.error("Error creating event:", error);
-    alert("❌ Server error. Please try again later.");
-  }
-});
-
-
   </script>
 </body>
 </html>
