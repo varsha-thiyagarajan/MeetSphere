@@ -143,9 +143,6 @@ document.getElementById("eventForm").addEventListener("submit", async function (
   const organizerName = document.getElementById("organizerName").value.trim();
   const organizerEmail = document.getElementById("organizerEmail").value.trim();
   const website = document.getElementById("website").value.trim();
-
-
-
 const availableSeatsValue = Number(maxParticipantsInput);
 if (isNaN(availableSeatsValue) || availableSeatsValue <= 0) {
   alert("⚠️ Please enter a valid number of available seats.");
