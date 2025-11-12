@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details | MeetSphere</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5" id="eventDetailsContainer"></div>
+
+<script>
+async function loadEventDetails() {
+  const params = new URLSearchParams(window.location.search);
+  const eventId = params.get("eventId");
+
+  if (!eventId) {
+    document.getElementById("eventDetailsContainer").innerHTML = `<p class="text-center text-danger">Event not found.</p>`;
+    return;
+  }
+
+  try {
+    // Fetch all events and filter by ID
+    const res = await fetch("http://localhost:3000/api/events");
+    const events = await res.json();
+    const event = events.find(e => e._id === eventId);
+
+    if (!event) {
+      document.getElementById("eventDetailsContainer").innerHTML = `<p class="text-center text-danger">Event not found.</p>`;
+      return;
+    }
+
+    document.getElementById("eventDetailsContainer").innerHTML = `
+      <div class="card shadow-sm p-4 rounded-4">
+        <h2 class="fw-bold">${event.title}</h2>
+        <p><strong>Description:</strong> ${event.description}</p>
+        <p><strong>Category:</strong> ${event.category}</p>
+        <p><strong>Date & Time:</strong> ${new Date(event.startDate).toLocaleString()}</p>
+        <p><strong>Seats:</strong> ${event.availableSeats}</p>
+        <p><strong>Location:</strong> ${event.location}</p>
+        <p><strong>Entry Type:</strong> ${event.entryType}</p>
+        <p><strong>Ticket Price:</strong> ${event.price ? event.price + " INR" : "Free"}</p>
+        <p><strong>Organizer:</strong> ${event.organizerName}</p>
+        <p><strong>Email:</strong> ${event.organizerEmail}</p>
+        ${event.website ? `<p><strong>Website:</strong> <a href="${event.website}" target="_blank">${event.website}</a></p>` : ""}
+        <div class="mt-4">
+          <button class="btn btn-secondary" onclick="goBack()"><i class="bi bi-arrow-left"></i> Back to Events</button>
+        </div>
+      </div>
+    `;
+  } catch (error) {
+    console.error(error);
+    document.getElementById("eventDetailsContainer").innerHTML = `<p class="text-center text-danger">Failed to load event details.</p>`;
+  }
+}
+
+function goBack() {
+  window.history.back();
+}
+
+loadEventDetails();
+</script>
+
+
+</body>
+</html>
