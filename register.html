@@ -3,60 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event Registration</title>
+  <title>Event Registration - MeetSphere</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
-  <div class="card p-4 shadow-lg" style="width: 400px;">
-    <h3 class="text-center mb-3">Register for Event</h3>
+<body class="bg-light">
+
+<div class="container py-5">
+  <a href="../index.html" class="btn btn-outline-secondary mb-4">
+    ← Back to Home
+  </a>
+
+  <div class="card p-4 shadow-sm rounded-4">
+    <h3 class="fw-bold mb-3 text-center">Event Registration</h3>
+
     <form id="registerForm">
-      <input type="hidden" id="eventId" />
+      <input type="hidden" id="eventId">
+
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label class="form-label">Full Name</label>
         <input type="text" id="name" class="form-control" required>
       </div>
+
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
+        <label class="form-label">Email</label>
         <input type="email" id="email" class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-primary w-100">Submit</button>
+
+    
+
+      <!-- This will only appear for paid events -->
+      <div id="paymentSection" class="mb-3 d-none">
+        <label class="form-label">Payment Method</label>
+        <select id="paymentMethod" class="form-select">
+          <option value="">Select Payment Method</option>
+          <option value="UPI">UPI</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+        </select>
+
+        <div class="mt-3">
+          <label class="form-label">Transaction ID</label>
+          <input type="text" id="transactionId" class="form-control" placeholder="Enter payment reference ID">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
     </form>
-    <p id="message" class="mt-3 text-center"></p>
+
+    <div id="message" class="mt-3 text-center fw-bold"></div>
   </div>
+</div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const eventId = urlParams.get("eventId");
-    document.getElementById("eventId").value = eventId;
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventId = urlParams.get("eventId");
+  document.getElementById("eventId").value = eventId;
 
-    document.getElementById("registerForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const data = {
-        eventId,
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value
-      };
+  try {
+    const response = await fetch(`http://localhost:3000/api/events/${eventId}`);
+    const event = await response.json();
 
-    const res = await fetch("http://localhost:3000/api/register", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data)
+    // Show payment section only if the event is paid
+    if (event.isPaid || event.price > 0) {
+      document.getElementById("paymentSection").classList.remove("d-none");
+    }
+
+  } catch (err) {
+    console.error("Error fetching event:", err);
+    document.getElementById("message").textContent = "Failed to load event details.";
+  }
+
+  // Submit form
+  document.getElementById("registerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      eventId: document.getElementById("eventId").value,
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      section: document.getElementById("section").value.trim(),
+      paymentMethod: document.getElementById("paymentMethod").value,
+      transactionId: document.getElementById("transactionId").value.trim()
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        document.getElementById("message").classList.add("text-success");
+        document.getElementById("message").textContent = "✅ Registration Successful!";
+        document.getElementById("registerForm").reset();
+      } else {
+        document.getElementById("message").classList.add("text-danger");
+        document.getElementById("message").textContent = `❌ ${data.message || "Registration failed"}`;
+      }
+    } catch (error) {
+      console.error(error);
+      document.getElementById("message").classList.add("text-danger");
+      document.getElementById("message").textContent = "❌ Registration failed due to a network error.";
+    }
+  });
 });
+</script>
 
-
-      const result = await res.json();
-      document.getElementById("message").innerText = result.message;
-
-     if (res.ok) {
-  const result = await res.json();
-  alert(result.message); // popup success message
-  window.location.href = "dashboard.html"; // redirect to dashboard
-} else {
-  const result = await res.json();
-  alert(result.message); // show error message
-}
-
-    });
-  </script>
 </body>
 </html>
