@@ -1,20 +1,15 @@
-// server.js
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const path = require("path");
-
 const app = express();
-
-// ✅ Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname))); // serve static files
-
-// ✅ MongoDB connection
 mongoose
   .connect("mongodb://127.0.0.1:27017/MeetSphere", {
     useNewUrlParser: true,
@@ -22,20 +17,12 @@ mongoose
   })
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB connection failed:", err));
-
-// ======================
-// ✅ User Schema
-// ======================
 const userSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true },
   password: String,
 });
 const User = mongoose.model("User", userSchema);
-
-// ======================
-// ✅ Event Schema
-// ======================
 const eventSchema = new mongoose.Schema({
   title: String,
   description: String,
@@ -43,7 +30,7 @@ const eventSchema = new mongoose.Schema({
   mode: String,
   startDate: String,
   endDate: String,
-  location: String, // ✅ make sure location is included
+  location: String, 
   availableSeats: Number,
   deadline: String,
   entryType: String,
@@ -65,17 +52,9 @@ const registrationSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 const Registration = mongoose.model("Registration", registrationSchema);
-
-// ======================
-// ✅ Serve HTML Pages
-// ======================
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
-
-// ======================
-// ✅ User Registration
-// ======================
 app.post("/api/registerUser", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -95,9 +74,6 @@ app.post("/api/registerUser", async (req, res) => {
   }
 });
 
-// ======================
-// ✅ User Login
-// ======================
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -113,44 +89,6 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ message: "Login failed" });
   }
 });
-
-// ======================
-// ✅ Create Event
-// ======================
-app.post("/createEvent", async (req, res) => {
-  try {
-    const eventData = req.body;
-
-    // default seats
-    if (!eventData.availableSeats && eventData.availableSeats !== 0) {
-      eventData.availableSeats = eventData.maxParticipants || 0;
-    }
-
-    const event = new Event(eventData);
-    await event.save();
-    res.status(201).json({ message: "Event created successfully", event });
-  } catch (error) {
-    console.error("❌ Create event error:", error);
-    res.status(500).json({ message: "Failed to create event" });
-  }
-});
-
-// ======================
-// ✅ Get All Events
-// ======================
-app.get("/api/events", async (req, res) => {
-  try {
-    const events = await Event.find();
-    res.status(200).json(events);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed to fetch events" });
-  }
-});
-
-// ======================
-// ✅ Register for Event
-// ======================
 app.post("/api/register", async (req, res) => {
   try {
     const { eventId, name, email } = req.body;
@@ -171,8 +109,6 @@ app.post("/api/register", async (req, res) => {
     await event.save();
 
     await Registration.create({ eventId, name, email });
-
-    // ✅ Optional Email confirmation (only if credentials added)
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -196,7 +132,30 @@ app.post("/api/register", async (req, res) => {
     res.status(500).json({ message: "Server error during registration" });
   }
 });
+app.post("/createEvent", async (req, res) => {
+  try {
+    const eventData = req.body;
+    if (!eventData.availableSeats && eventData.availableSeats !== 0) {
+      eventData.availableSeats = eventData.maxParticipants || 0;
+    }
 
+    const event = new Event(eventData);
+    await event.save();
+    res.status(201).json({ message: "Event created successfully", event });
+  } catch (error) {
+    console.error("❌ Create event error:", error);
+    res.status(500).json({ message: "Failed to create event" });
+  }
+});
+app.get("/api/events", async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.status(200).json(events);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch events" });
+  }
+});
 // ======================
 // ✅ Catch-all for invalid routes
 // ======================
