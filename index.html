@@ -170,6 +170,7 @@
 
 
 <script>
+  
 document.addEventListener("DOMContentLoaded", async () => {
   const eventContainer = document.getElementById("eventContainer");
 
@@ -226,6 +227,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventContainer.innerHTML = "<p class='text-danger text-center'>Failed to load events.</p>";
   }
 });
+function updateNavbarAuth() {
+  const authBtn = document.getElementById("auth-btn");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const name = localStorage.getItem("loggedInName");
+
+  if (isLoggedIn === "true") {
+    authBtn.textContent = `Logout (${name})`;
+    authBtn.classList.remove("btn-outline-primary");
+    authBtn.classList.add("btn-danger");
+
+    authBtn.onclick = () => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("loggedInEmail");
+      localStorage.removeItem("loggedInName");
+      window.location.reload();
+    };
+  } else {
+    authBtn.textContent = "Login/Register";
+    authBtn.href = "login.html";
+  }
+}
+
+// Run when page loads
+updateNavbarAuth();
 </script>
 
 </body>

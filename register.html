@@ -6,6 +6,7 @@
   <title>Event Registration - MeetSphere</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
 <div class="container py-5">
@@ -29,9 +30,7 @@
         <input type="email" id="email" class="form-control" required>
       </div>
 
-    
-
-      <!-- This will only appear for paid events -->
+      <!-- Payment section (only for paid events) -->
       <div id="paymentSection" class="mb-3 d-none">
         <label class="form-label">Payment Method</label>
         <select id="paymentMethod" class="form-select">
@@ -60,29 +59,46 @@ document.addEventListener("DOMContentLoaded", async () => {
   const eventId = urlParams.get("eventId");
   document.getElementById("eventId").value = eventId;
 
-  try {
-    const response = await fetch(`http://localhost:3000/api/events/${eventId}`);
-    const event = await response.json();
+  let eventData = null;
 
-    // Show payment section only if the event is paid
-    if (event.isPaid || event.price > 0) {
+  try {
+    // GET ALL EVENTS AND FILTER ONE (your backend has no /api/events/:id)
+    const response = await fetch(`http://localhost:3000/api/events`);
+    const events = await response.json();
+
+    eventData = events.find(e => e._id === eventId);
+
+    if (!eventData) {
+      document.getElementById("message").textContent = "Event not found.";
+      return;
+    }
+
+    // Show payment section only if paid
+    if (eventData.price && eventData.price > 0) {
       document.getElementById("paymentSection").classList.remove("d-none");
     }
 
   } catch (err) {
     console.error("Error fetching event:", err);
     document.getElementById("message").textContent = "Failed to load event details.";
+    return;
   }
 
-  // Submit form
+
+  // SUBMIT FORM
   document.getElementById("registerForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // ❌ STOP IF NO SEATS LEFT
+    if (eventData.availableSeats <= 0) {
+      alert("❌ No seats available for this event!");
+      return;
+    }
+
     const formData = {
-      eventId: document.getElementById("eventId").value,
+      eventId: eventId,
       name: document.getElementById("name").value.trim(),
       email: document.getElementById("email").value.trim(),
-      section: document.getElementById("section").value.trim(),
       paymentMethod: document.getElementById("paymentMethod").value,
       transactionId: document.getElementById("transactionId").value.trim()
     };
@@ -97,9 +113,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
 
       if (res.ok) {
-        document.getElementById("message").classList.add("text-success");
-        document.getElementById("message").textContent = "✅ Registration Successful!";
-        document.getElementById("registerForm").reset();
+        alert("🎉 Registration Successful!");
+        window.location.href = "../index.html"; // redirect home
       } else {
         document.getElementById("message").classList.add("text-danger");
         document.getElementById("message").textContent = `❌ ${data.message || "Registration failed"}`;
@@ -107,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
       console.error(error);
       document.getElementById("message").classList.add("text-danger");
-      document.getElementById("message").textContent = "❌ Registration failed due to a network error.";
+      document.getElementById("message").textContent = "❌ Network error occurred.";
     }
   });
 });

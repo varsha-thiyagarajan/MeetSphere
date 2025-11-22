@@ -3,93 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Event | MeetSphere</title>
+  <title>Create Event - MeetSphere</title>
+
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
     body {
-      background: linear-gradient(135deg, #b3e5fc, #90caf9, #64b5f6);
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 10px;
-      overflow-x: hidden;
+      background: #f7f9fc;
+      font-family: "Inter", sans-serif;
     }
-    .container {
-      max-width: 850px;
-      background: white;
-      border-radius: 25px;
-      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
-      padding: 45px 50px;
-      animation: fadeIn 1s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h2 {
-      text-align: center;
-      color: #0f0f0f;
-      font-weight: 700;
-      margin-bottom: 25px;
-    }
-
-    h5 {
-      color: #1565c0;
-      font-weight: 600;
-      margin-top: 35px;
-      border-bottom: 2px solid #90caf9;
-      padding-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .form-control, .form-select {
-      border-radius: 12px;
-      border: 1px solid #b0bec5;
-      transition: all 0.3s ease;
-    }
-
-    .form-control:focus, .form-select:focus {
-      border-color: #42a5f5;
-      box-shadow: 0 0 6px rgba(66, 165, 245, 0.5);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #1565c0, #1e88e5);
-      border: none;
-      border-radius: 12px;
-      padding: 12px 40px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #0d47a1, #1565c0);
-      transform: scale(1.05);
-    }
-
-    .section-divider {
-      text-align: center;
-      margin-top: 30px;
-      color: #607d8b;
-      font-weight: 500;
-      font-size: 1rem;
+    .card {
+      border-radius: 18px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2><i class="bi bi-calendar-event-fill text-primary"></i> Create Your Event</h2>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold"><i class="bi bi-people-fill"></i> MeetSphere</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">My Dashboard</a></li>
+          <li class="nav-item">
+            <a class="btn btn-outline-primary" id="authBtn" href="login.html">Login/Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FORM CONTAINER -->
+<div class="container py-5">
+  <div class="card shadow p-4">
+    <h2 class="mb-4 text-center fw-bold">Create New Event</h2>
 
     <form id="eventForm">
-      <h5><i class="bi bi-info-circle"></i> Event Information</h5>
+
+      <!-- EVENT INFORMATION -->
+      <h5 class="mb-3"><i class="bi bi-info-circle"></i> Event Information</h5>
 
       <div class="mb-3">
         <label class="form-label">Event Name</label>
@@ -121,6 +83,7 @@
               <input class="form-check-input" type="radio" name="eventType" value="Online" required>
               <label class="form-check-label">Online</label>
             </div>
+
             <div class="form-check">
               <input class="form-check-input" type="radio" name="eventType" value="Offline">
               <label class="form-check-label">Offline</label>
@@ -134,6 +97,7 @@
           <label class="form-label">Start Date & Time</label>
           <input type="datetime-local" id="startDate" class="form-control" required>
         </div>
+
         <div class="col-md-6 mb-3">
           <label class="form-label">End Date & Time</label>
           <input type="datetime-local" id="endDate" class="form-control" required>
@@ -145,13 +109,15 @@
         <input type="text" id="location" class="form-control" placeholder="Enter location or meeting link" required>
       </div>
 
-      <h5><i class="bi bi-person-lines-fill"></i> Registration Details</h5>
+      <!-- REGISTRATION DETAILS -->
+      <h5 class="mt-4 mb-3"><i class="bi bi-person-lines-fill"></i> Registration Details</h5>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label">Maximum Participants</label>
           <input type="number" id="maxParticipants" class="form-control" placeholder="e.g., 100" required>
         </div>
+
         <div class="col-md-6 mb-3">
           <label class="form-label">Registration Deadline</label>
           <input type="date" id="deadline" class="form-control" required>
@@ -165,6 +131,7 @@
             <input class="form-check-input" type="radio" name="entryType" value="Free" required>
             <label class="form-check-label">Free</label>
           </div>
+
           <div class="form-check">
             <input class="form-check-input" type="radio" name="entryType" value="Paid">
             <label class="form-check-label">Paid</label>
@@ -177,16 +144,17 @@
         <input type="number" id="price" class="form-control" placeholder="e.g., 500 INR">
       </div>
 
-      <h5><i class="bi bi-person-workspace"></i> Organizer Information</h5>
+      <!-- ORGANIZER DETAILS -->
+      <h5 class="mt-4 mb-3"><i class="bi bi-person-workspace"></i> Organizer Information</h5>
 
       <div class="mb-3">
         <label class="form-label">Organizer Name</label>
-        <input type="text" id="organizerName" class="form-control" placeholder="Name or Organization" required>
+        <input type="text" id="organizerName" class="form-control" readonly>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Organizer Email</label>
-        <input type="email" id="organizerEmail" class="form-control" placeholder="you@example.com" required>
+        <input type="email" id="organizerEmail" class="form-control" readonly>
       </div>
 
       <div class="mb-3">
@@ -194,64 +162,91 @@
         <input type="url" id="website" class="form-control" placeholder="https://yourwebsite.com">
       </div>
 
+      <!-- SUBMIT BUTTON -->
       <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary px-4">
           <i class="bi bi-plus-circle"></i> Create Event
         </button>
       </div>
+
     </form>
   </div>
+</div>
 
+  <!-- BOOTSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- AUTH + EVENT SUBMISSION LOGIC -->
   <script>
-    document.getElementById("eventForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+    // ============================
+    //  CHECK LOGIN + AUTO-FILL USER
+    // ============================
+    document.addEventListener("DOMContentLoaded", () => {
+      const loggedIn = localStorage.getItem("isLoggedIn");
+      const userEmail = localStorage.getItem("loggedInEmail");
+      const userName = localStorage.getItem("loggedInName");
 
-      const title = document.getElementById("title").value.trim();
-      const description = document.getElementById("description").value.trim();
-      const category = document.getElementById("category").value;
-      const mode = document.querySelector('input[name="eventType"]:checked')?.value;
-      const startDate = document.getElementById("startDate").value;
-      const endDate = document.getElementById("endDate").value;
-      const location = document.getElementById("location").value.trim();
-      const maxParticipants = Number(document.getElementById("maxParticipants").value);
-      const deadline = document.getElementById("deadline").value;
-      const entryType = document.querySelector('input[name="entryType"]:checked')?.value;
-      const price = document.getElementById("price").value;
-      const organizerName = document.getElementById("organizerName").value.trim();
-      const organizerEmail = document.getElementById("organizerEmail").value.trim();
-      const website = document.getElementById("website").value.trim();
-
-      if (isNaN(maxParticipants) || maxParticipants <= 0) {
-        alert("⚠️ Please enter a valid number of available seats.");
+      if (!loggedIn || loggedIn !== "true") {
+        alert("Please login first!");
+        window.location.href = "login.html";
         return;
       }
 
+      // Auto-fill organizer info
+      document.getElementById("organizerName").value = userName || "Unknown User";
+      document.getElementById("organizerEmail").value = userEmail;
+
+      // Update login/logout button
+      const authBtn = document.getElementById("authBtn");
+      authBtn.textContent = "Logout (" + userName + ")";
+      authBtn.classList.remove("btn-outline-primary");
+      authBtn.classList.add("btn-danger");
+
+      authBtn.onclick = () => {
+        localStorage.clear();
+        window.location.href = "index.html";
+      };
+    });
+
+
+    // ============================
+    //   EVENT SUBMIT HANDLING
+    // ============================
+
+    document.getElementById("eventForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
       const eventData = {
-        title, description, category, mode, startDate, endDate, location,
-        availableSeats: maxParticipants, deadline, entryType, price,
-        organizerName, organizerEmail, website
+        organizerName: document.getElementById("organizerName").value,
+        organizerEmail: document.getElementById("organizerEmail").value,
+        title: document.getElementById("title").value,
+        category: document.getElementById("category").value,
+        startDate: document.getElementById("startDate").value,
+        endDate: document.getElementById("endDate").value,
+        location: document.getElementById("location").value,
+        description: document.getElementById("description").value
       };
 
       try {
         const response = await fetch("http://localhost:3000/createEvent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(eventData),
+          body: JSON.stringify(eventData)
         });
 
         if (response.ok) {
-          alert("✅ Event created successfully!");
-          document.getElementById("eventForm").reset();
-          setTimeout(() => window.location.href = "dashboard.html", 1000);
+          alert("Event created successfully!");
+          window.location.href = "dashboard.html";
         } else {
-          const err = await response.json();
-          alert("❌ Failed to create event: " + (err.message || "Unknown error"));
+          alert("Failed to create event!");
         }
       } catch (error) {
-        console.error("Error creating event:", error);
-        alert("❌ Server error. Please try again later.");
+        alert("Error connecting to server!");
+        console.error(error);
       }
     });
+
   </script>
+
 </body>
 </html>
