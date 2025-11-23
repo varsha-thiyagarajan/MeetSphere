@@ -40,10 +40,7 @@ async function loadEventDetails() {
         <p><strong>Date & Time:</strong> ${new Date(event.startDate).toLocaleString()}</p>
         <p><strong>Seats:</strong> ${event.availableSeats}</p>
         <p><strong>Location:</strong> ${event.location}</p>
-        <p><strong>Entry Type:</strong> ${event.entryType}</p>
         <p><strong>Ticket Price:</strong> ${event.price ? event.price + " INR" : "Free"}</p>
-        <p><strong>Organizer:</strong> ${event.organizerName}</p>
-        <p><strong>Email:</strong> ${event.organizerEmail}</p>
         ${event.website ? `<p><strong>Website:</strong> <a href="${event.website}" target="_blank">${event.website}</a></p>` : ""}
         <div class="mt-4">
           <button class="btn btn-secondary" onclick="goBack()"><i class="bi bi-arrow-left"></i> Back to Events</button>
