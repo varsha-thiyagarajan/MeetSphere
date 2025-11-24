@@ -175,12 +175,7 @@
 
   <!-- BOOTSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- AUTH + EVENT SUBMISSION LOGIC -->
   <script>
-    // ============================
-    //  CHECK LOGIN + AUTO-FILL USER
-    // ============================
     document.addEventListener("DOMContentLoaded", () => {
       const loggedIn = localStorage.getItem("isLoggedIn");
       const userEmail = localStorage.getItem("loggedInEmail");
@@ -191,12 +186,8 @@
         window.location.href = "login.html";
         return;
       }
-
-      // Auto-fill organizer info
       document.getElementById("organizerName").value = userName || "Unknown User";
       document.getElementById("organizerEmail").value = userEmail;
-
-      // Update login/logout button
       const authBtn = document.getElementById("authBtn");
       authBtn.textContent = "Logout (" + userName + ")";
       authBtn.classList.remove("btn-outline-primary");
@@ -208,10 +199,6 @@
       };
     });
 
-
-    // ============================
-    //   EVENT SUBMIT HANDLING
-    // ============================
 
     document.getElementById("eventForm").addEventListener("submit", async function(e) {
       e.preventDefault();

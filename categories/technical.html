@@ -26,7 +26,6 @@
         const response = await fetch("http://localhost:3000/api/events");
         const events = await response.json();
         const filtered = events.filter(e => e.category.toLowerCase() === "technical");
-
         if (!filtered.length) {
           container.innerHTML = `<p class='text-center text-muted'>No technical events available right now.</p>`;
           return;

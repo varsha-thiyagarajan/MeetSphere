@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname))); // serve static files
+app.use(express.static(path.join(__dirname))); 
 mongoose
   .connect("mongodb://127.0.0.1:27017/MeetSphere", {
     useNewUrlParser: true,
@@ -42,9 +42,7 @@ const eventSchema = new mongoose.Schema({
 });
 const Event = mongoose.model("Event", eventSchema);
 
-// ======================
-// ✅ Registration Schema
-// ======================
+
 const registrationSchema = new mongoose.Schema({
   eventId: mongoose.Schema.Types.ObjectId,
   name: String,
@@ -79,10 +77,8 @@ app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({ message: "Email & password required" });
-
     const user = await User.findOne({ email, password });
     if (!user) return res.status(401).json({ message: "Invalid email or password" });
-
     res.status(200).json({ message: "Login successful", email: user.email, name: user.name });
   } catch (error) {
     console.error(error);
@@ -138,7 +134,6 @@ app.post("/createEvent", async (req, res) => {
     if (!eventData.availableSeats && eventData.availableSeats !== 0) {
       eventData.availableSeats = eventData.maxParticipants || 0;
     }
-
     const event = new Event(eventData);
     await event.save();
     res.status(201).json({ message: "Event created successfully", event });
@@ -156,15 +151,8 @@ app.get("/api/events", async (req, res) => {
     res.status(500).json({ message: "Failed to fetch events" });
   }
 });
-// ======================
-// ✅ Catch-all for invalid routes
-// ======================
 app.use((req, res) => {
   res.status(404).json({ message: "❌ Route not found" });
 });
-
-// ======================
-// ✅ Start Server
-// ======================
 const PORT = 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
