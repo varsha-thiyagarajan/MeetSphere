@@ -103,7 +103,8 @@ MeetSphere/
 ### 1️⃣ Clone the Repository
 
 ```
-git clone https://github.com/your-username/meetsphere.git
+git clone https://github.com/varsha-thiyagarajan/MeetSphere.git
+
 cd meetsphere
 ```
 
